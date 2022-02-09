@@ -1,7 +1,12 @@
 import { ReactElement, useState } from "react";
 import { Grid, SelectChangeEvent, Tabs, Tab } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { GroupSelector, PairSelector, OrderBookTable } from "../../components";
+import {
+  GroupSelector,
+  PairSelector,
+  OrderBookTable,
+  DepthSelector,
+} from "../../components";
 import { useOrderBook, useExchangeInfo } from "../../hooks";
 import {
   defaultExchangePair,
@@ -25,15 +30,9 @@ type TableType = keyof typeof TableEnum;
 
 export const OrderBookPage = (): ReactElement => {
   const [tabValue, setValue] = useState<TableType>(TableEnum.both);
-
-  const handleTabChange = (
-    event: React.SyntheticEvent,
-    newValue: TableType
-  ) => {
-    setValue(newValue);
-  };
-
   const [decimal, setDecimal] = useState(DecimalsEnum.two);
+  const [depth, setDepth] = useState<Depth>("15");
+
   const { pair: pairFromUrl } = useParams();
 
   const { pairs } = useExchangeInfo();
@@ -43,8 +42,19 @@ export const OrderBookPage = (): ReactElement => {
 
   const { orderBook } = useOrderBook(currentExchaingPair.symbol);
 
+  const handleDepthChange = (event: SelectChangeEvent) => {
+    setDepth(event.target.value as Depth);
+  };
+
   const handleDecimalChange = (event: SelectChangeEvent) => {
     setDecimal(event.target.value as DecimalsEnum);
+  };
+
+  const handleTabChange = (
+    event: React.SyntheticEvent,
+    newValue: TableType
+  ) => {
+    setValue(newValue);
   };
 
   const renderOrderBookContent = () => {
@@ -61,6 +71,7 @@ export const OrderBookPage = (): ReactElement => {
               title={TABLE_BUY_TITLE}
               baseAsset={baseAsset}
               quoteAsset={quoteAsset}
+              depth={depth}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -70,6 +81,7 @@ export const OrderBookPage = (): ReactElement => {
               title={TABLE_SELL_TITLE}
               baseAsset={baseAsset}
               quoteAsset={quoteAsset}
+              depth={depth}
             />
           </Grid>
         </>
@@ -88,6 +100,7 @@ export const OrderBookPage = (): ReactElement => {
             baseAsset={baseAsset}
             precision={precision}
             quoteAsset={quoteAsset}
+            depth={depth}
           />
         </Grid>
       );
@@ -113,11 +126,14 @@ export const OrderBookPage = (): ReactElement => {
           <Tab label="Both" value={TableEnum.both} />
         </Tabs>
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={5}>
         <h1>Order Book — {currentExchaingPair.label}</h1>
       </Grid>
       <Grid item xs={3}>
         <PairSelector options={pairs} />
+      </Grid>
+      <Grid item xs={2}>
+        <DepthSelector onChange={handleDepthChange} value={depth} />
       </Grid>
       <Grid item xs={2}>
         <GroupSelector onChange={handleDecimalChange} value={decimal} />

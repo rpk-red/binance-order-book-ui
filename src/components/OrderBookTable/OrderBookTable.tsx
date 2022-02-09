@@ -69,6 +69,7 @@ export interface OrderBookTableProps extends Omit<DataGridProps, "columns"> {
   baseAsset: string;
   quoteAsset: string;
   precision: number;
+  depth?: Depth;
 }
 
 export const OrderBookTable = ({
@@ -77,6 +78,7 @@ export const OrderBookTable = ({
   baseAsset,
   quoteAsset,
   precision,
+  depth = "15",
 }: OrderBookTableProps): ReactElement => {
   const Toolbar = () => CustomToolbar(title);
 
@@ -89,6 +91,8 @@ export const OrderBookTable = ({
         columns={getColumns(baseAsset, quoteAsset, precision)}
         density="compact"
         hideFooter
+        pageSize={parseInt(depth)}
+        autoHeight
         getRowId={(row) => row.price}
         showCellRightBorder={false}
         showColumnRightBorder={false}

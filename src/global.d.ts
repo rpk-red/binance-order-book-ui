@@ -12,6 +12,7 @@ declare type ExchangePair = {
   baseAsset: string;
 };
 
+declare type Depth = "15" | "30" | "50" | "100";
 declare type Price = string;
 declare type Size = string;
 

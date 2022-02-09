@@ -1,3 +1,5 @@
+export * from "./DepthSelector";
+
 export * from "./GroupSelector";
 
 export * from "./PairSelector";
