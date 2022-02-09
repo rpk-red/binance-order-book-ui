@@ -15,6 +15,7 @@ const transformOrders = <T>(orders: Record<Price, Size>): T[] => {
 };
 
 const removeEmptySize = (value: Record<Price, Size>) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   return Object.entries(value).filter(([_, v]) => parseFloat(v) != 0);
 };
 

@@ -21,6 +21,7 @@ export const executeFetch = async (url: RequestInfo, options: RequestInit) => {
   try {
     const response = await fetch(url, options);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let result: any = null;
 
     const contentType = response.headers.get("content-type");

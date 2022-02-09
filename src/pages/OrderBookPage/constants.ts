@@ -1,5 +1,3 @@
-import { EMPTY_STRING } from "../../constants";
-
 export const defaultExchangePair: ExchangePair = {
   symbol: "BTCUSDT",
   baseAsset: "BTC",
