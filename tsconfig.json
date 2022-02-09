@@ -1,11 +1,8 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "downlevelIteration": true,
+    "lib": ["dom", "dom.iterable", "esnext"],
     "baseUrl": "src",
     "allowJs": true,
     "skipLibCheck": true,
@@ -20,9 +17,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
     "typeRoots": ["./src/globa.d.ts"]
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

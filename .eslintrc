@@ -6,6 +6,7 @@
     "plugin:import/recommended",
     "plugin:jsx-a11y/recommended",
     "plugin:prettier/recommended",
+    "plugin:import/typescript",
     "plugin:@typescript-eslint/recommended"
   ],
   "plugins": ["react", "@typescript-eslint", "jest", "jsx-a11y"],
