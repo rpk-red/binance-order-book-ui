@@ -10,6 +10,7 @@ declare type ExchangePair = {
   label: string;
   quoteAsset: string;
   baseAsset: string;
+  groupOptions: number[];
 };
 
 declare type Depth = "15" | "30" | "50" | "100";

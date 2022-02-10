@@ -79,12 +79,14 @@ export const OrderBookTable = ({
   quoteAsset,
   precision,
   depth = "15",
+  ...otherProps
 }: OrderBookTableProps): ReactElement => {
   const Toolbar = () => CustomToolbar(title);
 
   return (
-    <div css={css({ height: 600, width: "100%", minWidth: 400 })}>
+    <div css={css({ width: "100%", minWidth: 400 })}>
       <DataGrid
+        {...otherProps}
         sx={dataGridSx}
         disableColumnMenu
         rows={rows}

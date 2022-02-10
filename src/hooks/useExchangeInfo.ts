@@ -4,7 +4,7 @@ import { executeFetch } from "../utils";
 type SymbolType = {
   baseAsset: string;
   baseAssetPrecision: number;
-  filters: unknown[];
+  filters: Record<string, never>[];
   icebergAllowed: boolean;
   isMarginTradingAllowed: boolean;
   isSpotTradingAllowed: boolean;
@@ -33,12 +33,28 @@ const formatPairs = (exchangeInfo: ExchangeInfo | null): ExchangePair[] => {
   const result = exchangeInfo.symbols
     .filter((element: SymbolType) => element.status === "TRADING")
     .map((sym: SymbolType) => {
+      const decimals: number[] = [];
+
+      // ! TODO: no good, find real solution
+      const maxDecimal = (sym.filters[0].minPrice as string)
+        .split(".")
+        .map((d) => d.replace(/(\.0+|0+)$/, "").length)[1];
+
+      decimals.push(maxDecimal);
+
+      [1, 2].forEach((n) => {
+        if (maxDecimal != 0 && maxDecimal - n > -1) {
+          decimals.push(maxDecimal - n);
+        }
+      });
+
       return {
         symbol: sym.symbol,
         urlParam: `${sym.baseAsset}_${sym.quoteAsset}`,
         label: `${sym.baseAsset}/${sym.quoteAsset}`,
         baseAsset: sym.baseAsset,
         quoteAsset: sym.quoteAsset,
+        groupOptions: decimals.reverse(),
       };
     });
   return result;

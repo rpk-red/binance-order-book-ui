@@ -10,9 +10,14 @@ import {
 export interface GroupSelectorProps {
   onChange: (event: SelectChangeEvent) => void;
   value: string;
+  options: number[];
 }
 
-export const GroupSelector = ({ onChange, value }: GroupSelectorProps) => {
+export const GroupSelector = ({
+  onChange,
+  value,
+  options,
+}: GroupSelectorProps) => {
   return (
     <Box sx={{ minWidth: 130 }}>
       <FormControl fullWidth>
@@ -24,9 +29,13 @@ export const GroupSelector = ({ onChange, value }: GroupSelectorProps) => {
           label="Group"
           onChange={onChange}
         >
-          <MenuItem value={0}>0 decimals</MenuItem>
-          <MenuItem value={1}>1 decimals</MenuItem>
-          <MenuItem value={2}>2 decimals</MenuItem>
+          {options.map((option) => {
+            return (
+              <MenuItem key={option} value={option}>
+                {option} decimals
+              </MenuItem>
+            );
+          })}
         </Select>
       </FormControl>
     </Box>

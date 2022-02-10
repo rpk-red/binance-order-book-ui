@@ -4,6 +4,7 @@ export const defaultExchangePair: ExchangePair = {
   quoteAsset: "USDT",
   label: "BTC/USDT",
   urlParam: "BTC_USDT",
+  groupOptions: [2, 1, 0],
 };
 
 export const TABLE_BUY_TITLE = "Buy Order";
